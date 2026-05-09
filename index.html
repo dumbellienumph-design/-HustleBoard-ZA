@@ -354,11 +354,16 @@ input:checked + .slider:before { transform: translateX(20px); }
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== SUPABASE LIVE CONFIG =====
-// NOTE: Please replace 'https://YOUR_PROJECT_URL.supabase.co' with your actual Supabase Project URL
-const SUPABASE_URL = 'https://YOUR_PROJECT_URL.supabase.co';
+// ===== SUPABASE FINAL CONNECTION =====
+const SUPABASE_URL = 'https://apofarrueppgfjuylgnx.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_8SRZ-GdeePjNYydNBM5WLg_iqD5PoYM';
+
+// This initializes the connection
 const supabaseClient = window.supabase?.createClient ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+// This wipes the 'Gate Washer' and placeholder data from your browser memory
+localStorage.removeItem('hustleboard_gigs');
+console.log("HustleBoard-ZA: Live database connected. Placeholders cleared.");
 
 const USER_KEY = 'hustleboard_user';
 const catEmoji = { 'Garden': '🌿', 'Cleaning': '🧹', 'Tech': '💻', 'Design': '🎨', 'Other': '📦' };
