@@ -115,6 +115,21 @@
   text-transform: uppercase;
 }
 .status-completed { background: rgba(0,184,113,0.15); color: var(--green-light); border: 1px solid var(--green); }
+.status-pending-confirmation { background: rgba(255,182,18,0.15); color: var(--gold); border: 1px solid var(--gold); }
+
+.btn-confirm-finish {
+  background: var(--gold);
+  color: #000;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+.btn-confirm-finish:hover { background: var(--gold-dark); }
 
 .dashboard-item {
   display: flex;
@@ -360,14 +375,27 @@ async function openDashboard() {
   openModal('dashboardModal');
 }
 
-async function toggleStatus(id, isCompleted) {
+async function toggleStatus(id, isFinished) {
   const gigs = await getGigs();
   const g = gigs.find(x => x.id == id);
   if (g && g.ownerId === currentUser.id) {
-    g.status = isCompleted ? 'Completed' : 'Active';
+    g.status = isFinished ? 'Pending Confirmation' : 'Active';
     saveAllGigs(gigs);
     renderGigs();
-    showToast(`Hustle marked as ${g.status}`);
+    showToast(`Hustle marked as ${isFinished ? 'Finished (Waiting for User confirmation)' : 'Active'}`);
+  }
+}
+
+async function confirmUserFinish(id) {
+  if (!currentUser) return openModal('authModal');
+  
+  const gigs = await getGigs();
+  const g = gigs.find(x => x.id == id);
+  if (g) {
+    g.status = 'Archived';
+    saveAllGigs(gigs);
+    renderGigs();
+    showToast("🎉 Job confirmed! It has been removed from the board.");
   }
 }
 
@@ -409,9 +437,12 @@ async function renderGigs() {
   
   gigs.sort((a,b) => (b.isFeatured - a.isFeatured) || (b.createdAt - a.createdAt));
 
-  grid.innerHTML = gigs.map(g => {
+  // Filter out archived (Double Confirmed) gigs
+  const activeGigs = gigs.filter(g => g.status !== 'Archived');
+
+  grid.innerHTML = activeGigs.map(g => {
     const isOwner = currentUser && g.ownerId === currentUser.id;
-    const isCompleted = g.status === 'Completed';
+    const isPendingConfirmation = g.status === 'Pending Confirmation';
     
     return `
       <div class="gig-card ${g.isFeatured ? 'featured-glow' : ''}">
@@ -421,7 +452,7 @@ async function renderGigs() {
           <div class="card-type-tag ${g.type === 'offer' ? 'type-offer' : 'type-request'}">
             ${g.type === 'offer' ? 'Service Offered' : 'Help Wanted'}
           </div>
-          ${isCompleted ? '<span class="status-badge status-completed">Completed ✓</span>' : ''}
+          ${isPendingConfirmation ? '<span class="status-badge status-pending-confirmation">Waiting for confirmation... ⏳</span>' : ''}
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -433,6 +464,13 @@ async function renderGigs() {
           ${g.isFeatured ? '<span class="badge badge-featured">FEATURED</span>' : ''}
           ${g.isVerified ? '<span class="badge badge-verified">Verified</span>' : ''}
         </div>
+
+        ${(isPendingConfirmation && !isOwner) ? `
+          <button class="btn-confirm-finish" onclick="confirmUserFinish('${g.id}')">
+            ✅ Confirm this job is done
+          </button>
+        ` : ''}
+
         <div style="display: flex; gap: 10px; margin-top: auto;">
           <button class="btn-wa" onclick="openAi('${g.id}')">Contact</button>
           ${isOwner ? `<button class="btn-post" onclick="openDashboard()" style="padding: 8px 12px; font-size: 0.8rem; background: var(--surface); color: var(--text);">Manage</button>` : `<button class="btn-post" onclick="openModal('payModal')" style="padding: 8px 12px; font-size: 0.8rem;">Boost</button>`}
