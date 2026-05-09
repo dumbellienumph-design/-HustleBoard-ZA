@@ -1,0 +1,25 @@
+{
+  "name": "hustleboard-za",
+  "version": "1.0.0",
+  "description": "A modern, responsive gig marketplace for South Africa.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dumbellienumph-design/-HustleBoard-ZA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dumbellienumph-design/-HustleBoard-ZA/issues"
+  },
+  "homepage": "https://github.com/dumbellienumph-design/-HustleBoard-ZA#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}

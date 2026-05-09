@@ -32,7 +32,6 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
 }
 
 /* === NAVBAR === */
@@ -42,7 +41,6 @@ body {
   z-index: 100;
   background: rgba(15,17,20,0.85);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--card-border);
   padding: 0 1rem;
 }
@@ -54,180 +52,37 @@ body {
   justify-content: space-between;
   height: 68px;
 }
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-icon {
-  width: 38px;
-  height: 38px;
+  width: 38px; height: 38px;
   background: linear-gradient(135deg, var(--green), var(--green-light));
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 900;
-  color: #fff;
-  box-shadow: 0 2px 12px rgba(0,122,77,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 900; color: #fff;
 }
-.logo-text {
-  font-weight: 900;
-  font-size: 1.35rem;
-  letter-spacing: -0.5px;
-  color: var(--text);
-}
-.logo-text span {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.logo-text { font-weight: 900; font-size: 1.35rem; color: var(--text); }
+.logo-text span { color: var(--gold); }
+
 .btn-post {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: #000;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: -0.2px;
-  box-shadow: 0 2px 15px rgba(255,182,18,0.25);
+  color: #000; border: none; padding: 10px 22px; border-radius: 10px;
+  font-weight: 700; cursor: pointer;
 }
-.btn-post:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 25px rgba(255,182,18,0.4);
-}
-.btn-post:active { transform: translateY(0); }
 
 /* === HERO === */
-.hero {
-  text-align: center;
-  padding: 3.5rem 1rem 1rem;
-  max-width: 700px;
-  margin: 0 auto;
-}
-.hero h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 900;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  margin-bottom: 0.75rem;
-}
-.hero h1 .accent-green { color: var(--green-light); }
-.hero h1 .accent-gold { color: var(--gold); }
-.hero p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 500px;
-  margin: 0 auto;
-}
+.hero { text-align: center; padding: 3.5rem 1rem 1rem; max-width: 700px; margin: 0 auto; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; margin-bottom: 0.75rem; }
+.hero h1 span { color: var(--green-light); }
 
-/* === SA FLAG STRIPE === */
-.flag-stripe {
-  display: flex;
-  height: 4px;
-  margin: 2rem auto 0;
-  max-width: 200px;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.flag-stripe div { flex: 1; }
-.flag-stripe .fs-green { background: var(--green); }
-.flag-stripe .fs-gold { background: var(--gold); }
-.flag-stripe .fs-black { background: #222; }
-.flag-stripe .fs-white { background: #ddd; }
-.flag-stripe .fs-red { background: #DE3831; }
-.flag-stripe .fs-blue { background: #002395; }
-
-/* === FILTERS === */
-.filters-section {
-  max-width: 1280px;
-  margin: 2rem auto 0;
-  padding: 0 1rem;
-}
-.filters-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-.search-wrap {
-  flex: 1;
-  min-width: 220px;
-  position: relative;
-}
-.search-wrap svg {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 18px;
-  color: var(--text-muted);
-}
-.search-input {
-  width: 100%;
-  padding: 12px 14px 12px 42px;
-  background: var(--surface);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  color: var(--text);
-  font-size: 0.95rem;
-  font-family: inherit;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.search-input::placeholder { color: var(--text-muted); }
-.search-input:focus { border-color: var(--green); }
-
-.filter-select {
-  padding: 12px 36px 12px 14px;
-  background: var(--surface);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  color: var(--text);
-  font-size: 0.9rem;
-  font-family: inherit;
-  outline: none;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238B8D97' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  transition: border-color 0.2s;
-}
-.filter-select:focus { border-color: var(--green); }
-
-.gig-count {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 4px 0;
-  min-width: max-content;
-}
-
-/* === GIG GRID === */
-.gig-grid-section {
-  max-width: 1280px;
-  margin: 1.5rem auto 0;
-  padding: 0 1rem 4rem;
-}
+/* === GIG CARD === */
 .gig-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 18px;
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
-@media (max-width: 380px) {
-  .gig-grid { grid-template-columns: 1fr; }
-}
-
-/* === GIG CARD === */
 .gig-card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -236,854 +91,251 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  transition: transform 0.2s;
 }
-.gig-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--green), var(--gold));
-  opacity: 0;
-  transition: opacity 0.3s;
+.gig-card.featured-glow {
+  border-color: var(--gold);
+  box-shadow: var(--glow-gold);
 }
-.gig-card:hover {
-  border-color: rgba(0,122,77,0.4);
-  box-shadow: var(--glow-green);
-  transform: translateY(-3px);
+.card-type-tag {
+  font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; display: inline-block; width: max-content;
 }
-.gig-card:hover::before { opacity: 1; }
+.type-offer { background: rgba(0,122,77,0.15); color: var(--green-light); }
+.type-request { background: rgba(255,182,18,0.15); color: var(--gold); }
 
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-}
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-  line-height: 1.3;
-  flex: 1;
-}
+.card-title { font-size: 1.15rem; font-weight: 800; }
 .card-price {
-  background: linear-gradient(135deg, var(--green), var(--green-light));
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.95rem;
-  padding: 4px 12px;
-  border-radius: 8px;
-  white-space: nowrap;
-  letter-spacing: -0.2px;
+  background: var(--green); color: #fff;
+  padding: 4px 12px; border-radius: 8px; font-weight: 800;
 }
-.card-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
+.request-price { background: var(--gold); color: #000; }
+
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  background: rgba(255,255,255,0.06);
-  color: var(--text-muted);
+  font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px;
+  background: rgba(255,255,255,0.05); color: var(--text-muted);
 }
-.badge svg { width: 13px; height: 13px; }
-.badge-cat { color: var(--gold); background: rgba(255,182,18,0.1); }
-.badge-loc { color: var(--green-light); background: rgba(0,184,113,0.1); }
+.badge-featured { color: var(--gold); border: 1px solid var(--gold); }
+.badge-verified { color: #4facfe; border: 1px solid #4facfe; }
 
-.card-desc {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 4px;
-}
 .btn-wa {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 11px 16px;
-  background: #25D366;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.btn-wa:hover {
-  background: #20BD5A;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.3);
-  transform: translateY(-1px);
-}
-.btn-wa svg { width: 18px; height: 18px; }
-
-.btn-filled {
-  padding: 11px 16px;
-  background: transparent;
-  border: 1px solid var(--card-border);
-  color: var(--text-muted);
-  border-radius: 10px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.btn-filled:hover {
-  border-color: var(--danger);
-  color: var(--danger);
-  background: rgba(229,69,69,0.08);
+  background: #25D366; color: #fff; border: none; padding: 12px;
+  border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%;
+  margin-top: auto;
 }
 
-.card-time {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  opacity: 0.6;
-}
-
-/* === EMPTY STATE === */
-.empty-state {
-  text-align: center;
-  padding: 4rem 1rem;
-  grid-column: 1 / -1;
-}
-.empty-icon {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-.empty-state h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-}
-.empty-state p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-}
-.btn-empty {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, var(--green), var(--green-light));
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 2px 15px rgba(0,122,77,0.3);
-}
-.btn-empty:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 25px rgba(0,122,77,0.4);
-}
-
-/* === MODAL === */
+/* === MODALS === */
 .modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  animation: fadeIn 0.2s ease;
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+  z-index: 200; align-items: center; justify-content: center; padding: 1rem;
 }
 .modal-overlay.active { display: flex; }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
 .modal {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 18px;
-  width: 100%;
-  max-width: 540px;
-  max-height: 90vh;
-  overflow-y: auto;
-  animation: slideUp 0.3s ease;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 18px; width: 100%; max-width: 500px; padding: 2rem;
 }
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem 1.5rem 0;
-}
-.modal-header h2 {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-.modal-close {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.06);
-  border: none;
-  border-radius: 10px;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.2s;
-}
-.modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text); }
-
-.modal-body { padding: 1.25rem 1.5rem 1.5rem; }
-.form-group { margin-bottom: 1rem; }
-.form-label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-.form-input, .form-select, .form-textarea {
-  width: 100%;
-  padding: 12px 14px;
-  background: var(--surface);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  color: var(--text);
-  font-size: 0.95rem;
-  font-family: inherit;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: var(--green);
-}
-.form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
-.form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238B8D97' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
-  cursor: pointer;
-}
-.form-textarea {
-  resize: vertical;
-  min-height: 90px;
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-@media (max-width: 480px) {
-  .form-row { grid-template-columns: 1fr; }
-}
-
-.form-hint {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  opacity: 0.7;
-}
-
-.btn-submit {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--green), var(--green-light));
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 0.5rem;
-  box-shadow: 0 2px 15px rgba(0,122,77,0.3);
-}
-.btn-submit:hover {
-  box-shadow: 0 4px 25px rgba(0,122,77,0.45);
-  transform: translateY(-1px);
-}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
 
 /* === TOAST === */
 .toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--green);
-  color: #fff;
-  padding: 14px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  z-index: 300;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-  white-space: nowrap;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  background: var(--green); color: #fff; padding: 12px 24px;
+  border-radius: 10px; font-weight: 600; opacity: 0; transition: 0.3s;
 }
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.toast.show { opacity: 1; }
 
-/* === FOOTER === */
-.footer {
-  text-align: center;
-  padding: 2rem 1rem;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  border-top: 1px solid var(--card-border);
-  max-width: 1280px;
-  margin: 0 auto;
+.form-group { margin-bottom: 1rem; }
+.form-label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: var(--text-muted); }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 12px; background: var(--surface);
+  border: 1px solid var(--card-border); border-radius: 10px; color: var(--text);
 }
-.footer a { color: var(--gold); text-decoration: none; }
-
-/* === SCROLLBAR === */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-/* === CONFIRM DIALOG === */
-.confirm-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  z-index: 250;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-.confirm-overlay.active { display: flex; }
-.confirm-box {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
-  max-width: 380px;
-  width: 100%;
-  animation: slideUp 0.3s ease;
-}
-.confirm-box h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-.confirm-box p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
-}
-.confirm-actions {
-  display: flex;
-  gap: 10px;
-}
-.confirm-actions button {
-  flex: 1;
-  padding: 11px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-}
-.btn-confirm-cancel {
-  background: rgba(255,255,255,0.06);
-  color: var(--text-muted);
-  border: 1px solid var(--card-border) !important;
-}
-.btn-confirm-cancel:hover { background: rgba(255,255,255,0.1); color: var(--text); }
-.btn-confirm-yes {
-  background: var(--danger);
-  color: #fff;
-}
-.btn-confirm-yes:hover { background: #d13a3a; }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="navbar-inner">
-    <a href="#" class="logo" onclick="return false;">
+    <a href="#" class="logo">
       <div class="logo-icon">H</div>
       <div class="logo-text">HustleBoard <span>ZA</span></div>
     </a>
-    <button class="btn-post" onclick="openModal()">
-      + Post a Gig
-    </button>
+    <button class="btn-post" onclick="openModal('postModal')">+ Post a Gig</button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <h1>Find <span class="accent-green">local gigs</span> or post your <span class="accent-gold">hustle</span></h1>
-  <p>South Africa's community gig board. Post a service, find help, connect on WhatsApp. No middleman.</p>
-  <div class="flag-stripe">
-    <div class="fs-green"></div>
-    <div class="fs-gold"></div>
-    <div class="fs-black"></div>
-    <div class="fs-white"></div>
-    <div class="fs-red"></div>
-    <div class="fs-blue"></div>
-  </div>
+  <h1>Find <span>local gigs</span> or post your hustle</h1>
+  <p>Connect directly via WhatsApp. No middleman.</p>
 </section>
 
-<!-- FILTERS -->
-<section class="filters-section">
-  <div class="filters-bar">
-    <div class="search-wrap">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" class="search-input" id="searchInput" placeholder="Search gigs..." oninput="renderGigs()">
-    </div>
-    <select class="filter-select" id="filterCategory" onchange="renderGigs()">
-      <option value="">All Categories</option>
-      <option value="Garden">🌿 Garden</option>
-      <option value="Cleaning">🧹 Cleaning</option>
-      <option value="Design">🎨 Design</option>
-      <option value="Delivery">🚚 Delivery</option>
-      <option value="Tutoring">📚 Tutoring</option>
-      <option value="Coding">💻 Coding</option>
-      <option value="Other">📦 Other</option>
-    </select>
-    <select class="filter-select" id="filterCity" onchange="renderGigs()">
-      <option value="">All Cities</option>
-      <option value="Joburg">Joburg</option>
-      <option value="Cape Town">Cape Town</option>
-      <option value="Durban">Durban</option>
-      <option value="Pretoria">Pretoria</option>
-      <option value="Other">Other</option>
-    </select>
-    <span class="gig-count" id="gigCount">0 gigs</span>
-  </div>
-</section>
+<div class="gig-grid" id="gigGrid"></div>
 
-<!-- GIG GRID -->
-<section class="gig-grid-section">
-  <div class="gig-grid" id="gigGrid"></div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  Built for the hustle. 🇿🇦 <strong>HustleBoard ZA</strong> — All data stored locally in your browser.
-</footer>
-
-<!-- POST GIG MODAL -->
-<div class="modal-overlay" id="modalOverlay">
+<!-- POST MODAL -->
+<div class="modal-overlay" id="postModal">
   <div class="modal">
     <div class="modal-header">
       <h2>Post a Gig</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal('postModal')">✕</button>
     </div>
-    <div class="modal-body">
-      <form id="gigForm" onsubmit="handleSubmit(event)">
-        <div class="form-group">
-          <label class="form-label">Gig Title *</label>
-          <input type="text" class="form-input" id="gigTitle" placeholder="e.g. Garden cleanup & mowing" required maxlength="80">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Category *</label>
-            <select class="form-select" id="gigCategory" required>
-              <option value="">Select...</option>
-              <option value="Garden">🌿 Garden</option>
-              <option value="Cleaning">🧹 Cleaning</option>
-              <option value="Design">🎨 Design</option>
-              <option value="Delivery">🚚 Delivery</option>
-              <option value="Tutoring">📚 Tutoring</option>
-              <option value="Coding">💻 Coding</option>
-              <option value="Other">📦 Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Location *</label>
-            <select class="form-select" id="gigLocation" required>
-              <option value="">Select...</option>
-              <option value="Joburg">Joburg</option>
-              <option value="Cape Town">Cape Town</option>
-              <option value="Durban">Durban</option>
-              <option value="Pretoria">Pretoria</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Price (Rands) *</label>
-            <input type="number" class="form-input" id="gigPrice" placeholder="e.g. 350" required min="1" max="999999">
-          </div>
-          <div class="form-group">
-            <label class="form-label">WhatsApp Number *</label>
-            <input type="tel" class="form-input" id="gigWhatsapp" placeholder="e.g. 0821234567" required>
-            <div class="form-hint">SA mobile number (10 digits)</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Description *</label>
-          <textarea class="form-textarea" id="gigDesc" placeholder="Describe what you're offering, your experience, availability..." required maxlength="500"></textarea>
-        </div>
-        <button type="submit" class="btn-submit">🚀 Post My Gig</button>
-      </form>
-    </div>
+    <form onsubmit="handlePost(event)">
+      <div class="form-group">
+        <label class="form-label">I want to...</label>
+        <select class="form-select" id="postType" required>
+          <option value="offer">Offer a service</option>
+          <option value="request">Find help</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-input" id="postTitle" placeholder="e.g. Plumber available" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Price (Rands)</label>
+        <input type="number" class="form-input" id="postPrice" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">WhatsApp Number</label>
+        <input type="tel" class="form-input" id="postWhatsapp" placeholder="082..." required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" id="postDesc" required></textarea>
+      </div>
+      <button type="submit" class="btn-post" style="width: 100%;">🚀 Post Now</button>
+    </form>
   </div>
 </div>
 
-<!-- CONFIRM DIALOG -->
-<div class="confirm-overlay" id="confirmOverlay">
-  <div class="confirm-box">
-    <h3>Mark as Filled?</h3>
-    <p>This gig will be removed from the board. This action can't be undone.</p>
-    <div class="confirm-actions">
-      <button class="btn-confirm-cancel" onclick="closeConfirm()">Cancel</button>
-      <button class="btn-confirm-yes" id="confirmYesBtn">Yes, Remove</button>
+<!-- AI ASSISTANT MODAL -->
+<div class="modal-overlay" id="aiModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🤖 AI Assistant</h2>
+      <button class="modal-close" onclick="closeModal('aiModal')">✕</button>
     </div>
+    <div id="aiPitch" style="background: var(--surface); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; line-height: 1.5;"></div>
+    <button class="btn-wa" id="sendAiBtn">🚀 Send to WhatsApp</button>
   </div>
 </div>
 
-<!-- TOAST -->
+<!-- PAYSTACK MODAL -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal" style="text-align: center;">
+    <h2 style="color: var(--gold); margin-bottom: 1rem;">✨ Boost Your Post</h2>
+    <p style="margin-bottom: 2rem;">Get 10x more views by pinning this to the top for R50.</p>
+    <button class="btn-post" onclick="simulatePayment()" style="width: 100%; background: #3bb3e0; color: #fff;">Pay with Paystack</button>
+    <button class="btn-wa" onclick="closeModal('payModal')" style="background: none; color: var(--text-muted);">Maybe later</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== DATA LAYER =====
-const STORAGE_KEY = 'hustleboard_za_gigs';
+const API_URL = 'http://localhost:5000/api';
+const STORAGE_KEY = 'hustleboard_gigs';
 
-function getGigs() {
+async function getGigs() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const res = await fetch(`${API_URL}/gigs`);
+    return await res.json();
   } catch {
-    return [];
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   }
 }
 
-function saveGigs(gigs) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(gigs));
-}
-
-function addGig(gig) {
-  const gigs = getGigs();
-  gig.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  gig.createdAt = Date.now();
-  gigs.unshift(gig);
-  saveGigs(gigs);
-  return gig;
-}
-
-function removeGig(id) {
-  const gigs = getGigs().filter(g => g.id !== id);
-  saveGigs(gigs);
-}
-
-// ===== PHONE FORMAT =====
-function formatWhatsApp(number) {
-  let cleaned = number.replace(/\D/g, '');
-  if (cleaned.startsWith('0')) {
-    cleaned = '27' + cleaned.slice(1);
-  } else if (!cleaned.startsWith('27')) {
-    cleaned = '27' + cleaned;
-  }
-  return cleaned;
-}
-
-// ===== CATEGORY EMOJI MAP =====
-const catEmoji = {
-  'Garden': '🌿',
-  'Cleaning': '🧹',
-  'Design': '🎨',
-  'Delivery': '🚚',
-  'Tutoring': '📚',
-  'Coding': '💻',
-  'Other': '📦'
-};
-
-// ===== TIME AGO =====
-function timeAgo(ts) {
-  const diff = Date.now() - ts;
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return 'Just now';
-  if (mins < 60) return mins + 'm ago';
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return hrs + 'h ago';
-  const days = Math.floor(hrs / 24);
-  if (days < 7) return days + 'd ago';
-  const weeks = Math.floor(days / 7);
-  return weeks + 'w ago';
-}
-
-// ===== RENDER =====
-function renderGigs() {
+async function renderGigs() {
+  const gigs = await getGigs();
   const grid = document.getElementById('gigGrid');
-  const search = document.getElementById('searchInput').value.toLowerCase().trim();
-  const catFilter = document.getElementById('filterCategory').value;
-  const cityFilter = document.getElementById('filterCity').value;
+  
+  // Sort: Featured first
+  gigs.sort((a,b) => (b.isFeatured - a.isFeatured) || (b.createdAt - a.createdAt));
 
-  let gigs = getGigs();
-
-  // Filter
-  if (catFilter) gigs = gigs.filter(g => g.category === catFilter);
-  if (cityFilter) gigs = gigs.filter(g => g.location === cityFilter);
-  if (search) {
-    gigs = gigs.filter(g =>
-      g.title.toLowerCase().includes(search) ||
-      g.description.toLowerCase().includes(search) ||
-      g.category.toLowerCase().includes(search) ||
-      g.location.toLowerCase().includes(search)
-    );
-  }
-
-  document.getElementById('gigCount').textContent = gigs.length + ' gig' + (gigs.length !== 1 ? 's' : '');
-
-  if (gigs.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🔍</div>
-        <h3>No gigs found</h3>
-        <p>${search || catFilter || cityFilter ? 'Try adjusting your filters or search terms.' : 'Be the first to post a gig on the board!'}</p>
-        <button class="btn-empty" onclick="openModal()">+ Post a Gig</button>
+  grid.innerHTML = gigs.map(g => `
+    <div class="gig-card ${g.isFeatured ? 'featured-glow' : ''}">
+      <div class="card-type-tag ${g.type === 'offer' ? 'type-offer' : 'type-request'}">
+        ${g.type === 'offer' ? 'Service Offered' : 'Help Wanted'}
       </div>
-    `;
-    return;
-  }
-
-  grid.innerHTML = gigs.map(g => {
-    const waNum = formatWhatsApp(g.whatsapp);
-    const waMsg = encodeURIComponent(`Hi! I saw your gig "${g.title}" on HustleBoard ZA and I'm interested. Is it still available?`);
-    const waLink = `https://wa.me/${waNum}?text=${waMsg}`;
-    const emoji = catEmoji[g.category] || '📦';
-    const escTitle = escapeHtml(g.title);
-    const escDesc = escapeHtml(g.description);
-
-    return `
-      <div class="gig-card">
-        <div class="card-top">
-          <div class="card-title">${escTitle}</div>
-          <div class="card-price">R${Number(g.price).toLocaleString()}</div>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-cat">${emoji} ${escapeHtml(g.category)}</span>
-          <span class="badge badge-loc">
-            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            ${escapeHtml(g.location)}
-          </span>
-        </div>
-        <div class="card-desc">${escDesc}</div>
-        <div class="card-actions">
-          <a href="${waLink}" target="_blank" rel="noopener" class="btn-wa">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Contact on WhatsApp
-          </a>
-          <button class="btn-filled" onclick="confirmFilled('${g.id}')">Filled</button>
-        </div>
-        <div class="card-time">Posted ${timeAgo(g.createdAt)}</div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <h3 class="card-title">${g.title} ${g.isVerified ? '🛡️' : ''}</h3>
+        <span class="card-price ${g.type === 'request' ? 'request-price' : ''}">R${g.price}</span>
       </div>
-    `;
-  }).join('');
+      <p style="color: var(--text-muted); font-size: 0.9rem;">${g.description}</p>
+      <div style="display: flex; gap: 8px; margin: 10px 0;">
+        ${g.isFeatured ? '<span class="badge badge-featured">FEATURED</span>' : ''}
+        ${g.isVerified ? '<span class="badge badge-verified">Verified</span>' : ''}
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: auto;">
+        <button class="btn-wa" onclick="openAi('${g.id}')">Contact</button>
+        <button class="btn-post" onclick="openModal('payModal')" style="padding: 8px 12px; font-size: 0.8rem;">Boost</button>
+      </div>
+    </div>
+  `).join('');
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-// ===== MODAL =====
-function openModal() {
-  document.getElementById('modalOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('gigTitle').focus(), 100);
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// ===== FORM SUBMIT =====
-function handleSubmit(e) {
+async function handlePost(e) {
   e.preventDefault();
-
-  const title = document.getElementById('gigTitle').value.trim();
-  const category = document.getElementById('gigCategory').value;
-  const location = document.getElementById('gigLocation').value;
-  const price = document.getElementById('gigPrice').value;
-  const whatsapp = document.getElementById('gigWhatsapp').value.trim();
-  const description = document.getElementById('gigDesc').value.trim();
-
-  // Validate phone
-  const cleanedPhone = whatsapp.replace(/\D/g, '');
-  if (cleanedPhone.length < 10 || cleanedPhone.length > 12) {
-    showToast('Please enter a valid SA phone number', true);
-    return;
+  const gig = {
+    title: document.getElementById('postTitle').value,
+    type: document.getElementById('postType').value,
+    price: document.getElementById('postPrice').value,
+    whatsapp: document.getElementById('postWhatsapp').value,
+    description: document.getElementById('postDesc').value,
+    createdAt: Date.now()
+  };
+  
+  try {
+    await fetch(`${API_URL}/gigs`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(gig)
+    });
+  } catch {
+    const local = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    local.unshift({...gig, id: Date.now()});
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(local));
   }
-
-  addGig({ title, category, location, price, whatsapp, description });
-
-  document.getElementById('gigForm').reset();
-  closeModal();
+  
+  closeModal('postModal');
   renderGigs();
-  showToast('Gig posted successfully! 🎉');
+  showToast("Post added! 🎉");
 }
 
-// ===== CONFIRM FILLED =====
-let pendingDeleteId = null;
-
-function confirmFilled(id) {
-  pendingDeleteId = id;
-  document.getElementById('confirmOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
+async function openAi(id) {
+  const gigs = await getGigs();
+  const g = gigs.find(x => x.id == id);
+  const pitch = g.type === 'offer' 
+    ? `Hi! I saw your service "${g.title}" on HustleBoard and I'm interested.`
+    : `Hi! I saw your request for "${g.title}" and I'd love to help.`;
+    
+  document.getElementById('aiPitch').textContent = pitch;
+  document.getElementById('sendAiBtn').onclick = () => {
+    window.open(`https://wa.me/${g.whatsapp}?text=${encodeURIComponent(pitch)}`);
+  };
+  openModal('aiModal');
 }
 
-function closeConfirm() {
-  pendingDeleteId = null;
-  document.getElementById('confirmOverlay').classList.remove('active');
-  document.body.style.overflow = '';
+function simulatePayment() {
+  showToast("Processing...");
+  setTimeout(() => {
+    showToast("Success! Post boosted. 🎉");
+    closeModal('payModal');
+  }, 1500);
 }
 
-document.getElementById('confirmYesBtn').addEventListener('click', function() {
-  if (pendingDeleteId) {
-    removeGig(pendingDeleteId);
-    closeConfirm();
-    renderGigs();
-    showToast('Gig marked as filled and removed ✓');
-  }
-});
-
-document.getElementById('confirmOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeConfirm();
-});
-
-// ===== TOAST =====
-function showToast(msg, isError) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.style.background = isError ? 'var(--danger)' : 'var(--green)';
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+function showToast(m) {
+  const t = document.getElementById('toast');
+  t.textContent = m; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ===== KEYBOARD SHORTCUTS =====
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeModal();
-    closeConfirm();
-  }
-});
-
-// ===== SEED DATA =====
-function seedData() {
-  if (getGigs().length > 0) return;
-
-  const sampleGigs = [
-    {
-      title: 'Full garden cleanup & mowing',
-      category: 'Garden',
-      location: 'Joburg',
-      price: '350',
-      whatsapp: '0821234567',
-      description: 'Complete garden service including mowing, edging, weeding, and general cleanup. I bring my own equipment. Available weekdays and Saturdays. Serving Sandton, Randburg, and surrounding areas.'
-    },
-    {
-      title: 'Professional deep cleaning service',
-      category: 'Cleaning',
-      location: 'Cape Town',
-      price: '500',
-      whatsapp: '0739876543',
-      description: 'Thorough deep cleaning for homes and apartments. Includes kitchen, bathrooms, floors, and windows. Eco-friendly products used. Available across the Cape Town metro area. References available.'
-    },
-    {
-      title: 'Logo & brand identity design',
-      category: 'Design',
-      location: 'Durban',
-      price: '1500',
-      whatsapp: '0615552233',
-      description: 'Professional logo and brand identity design for small businesses and startups. Package includes logo, colour palette, and social media templates. 3 initial concepts, 2 revision rounds.'
-    },
-    {
-      title: 'Same-day delivery across Pretoria',
-      category: 'Delivery',
-      location: 'Pretoria',
-      price: '150',
-      whatsapp: '0824445566',
-      description: 'Fast and reliable same-day delivery service. Documents, parcels, and small items. Covering Pretoria CBD, Centurion, Midrand. Own reliable transport. WhatsApp for a quote.'
-    },
-    {
-      title: 'Maths & Science tutoring (Gr 8-12)',
-      category: 'Tutoring',
-      location: 'Joburg',
-      price: '250',
-      whatsapp: '0837778899',
-      description: 'Experienced tutor offering Maths and Physical Science lessons for high school students. IEB and NSC curriculum. Can do in-person (Joburg North) or online via Zoom. Exam prep available.'
-    },
-    {
-      title: 'Website development - React & Node.js',
-      category: 'Coding',
-      location: 'Cape Town',
-      price: '5000',
-      whatsapp: '0721112233',
-      description: 'Full-stack web development services. I build responsive websites and web apps using React, Node.js, and modern tech. From landing pages to full e-commerce solutions. Portfolio available on request.'
-    }
-  ];
-
-  sampleGigs.forEach(gig => {
-    gig.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-    gig.createdAt = Date.now() - Math.floor(Math.random() * 86400000 * 3);
-  });
-
-  saveGigs(sampleGigs);
-}
-
-// ===== INIT =====
-seedData();
 renderGigs();
 </script>
-
 </body>
 </html>
