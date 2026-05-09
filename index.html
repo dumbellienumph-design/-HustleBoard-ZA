@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HustleBoard ZA — Local Gig Marketplace</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -37,47 +38,27 @@ body {
 
 /* === NAVBAR === */
 .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(15,17,20,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--card-border);
-  padding: 0 1rem;
+  position: sticky; top: 0; z-index: 100; background: rgba(15,17,20,0.85);
+  backdrop-filter: blur(20px); border-bottom: 1px solid var(--card-border); padding: 0 1rem;
 }
 .navbar-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 68px;
+  max-width: 1280px; margin: 0 auto; display: flex; align-items: center;
+  justify-content: space-between; height: 68px;
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-icon {
-  width: 38px; height: 38px;
-  background: linear-gradient(135deg, var(--green), var(--green-light));
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; background: linear-gradient(135deg, var(--green), var(--green-light));
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
   font-size: 18px; font-weight: 900; color: #fff;
 }
 .logo-text { font-weight: 900; font-size: 1.35rem; color: var(--text); }
 .logo-text span { color: var(--gold); }
 
 /* === AUTH & DASHBOARD === */
-.nav-auth {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.nav-auth { display: flex; align-items: center; gap: 12px; }
 .btn-login {
-  background: transparent;
-  border: 1px solid var(--card-border);
-  color: var(--text);
-  padding: 8px 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
+  background: transparent; border: 1px solid var(--card-border); color: var(--text);
+  padding: 8px 16px; border-radius: 10px; font-weight: 600; cursor: pointer;
 }
 .btn-post {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
@@ -85,25 +66,13 @@ body {
   font-weight: 700; cursor: pointer;
 }
 .user-profile {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 4px 12px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.05);
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 4px 12px; border-radius: 10px; background: rgba(255,255,255,0.05);
 }
 .user-avatar {
-  width: 28px;
-  height: 28px;
-  background: var(--green);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 0.8rem;
-  color: #fff;
+  width: 28px; height: 28px; background: var(--green); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.8rem; color: #fff;
 }
 
 /* === HERO === */
@@ -113,30 +82,17 @@ body {
 
 /* === GIG CARD === */
 .gig-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 18px;
-  max-width: 1280px;
-  margin: 2rem auto;
-  padding: 0 1rem 4rem;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px; max-width: 1280px; margin: 2rem auto; padding: 0 1rem 4rem;
 }
 .gig-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius); padding: 1.5rem; display: flex;
+  flex-direction: column; gap: 12px; position: relative;
+  transition: all 0.3s ease; overflow: hidden;
 }
 .gig-card:hover { transform: translateY(-3px); border-color: var(--green-light); }
-.gig-card.featured-glow {
-  border-color: var(--gold);
-  box-shadow: var(--glow-gold);
-}
+.gig-card.featured-glow { border-color: var(--gold); box-shadow: var(--glow-gold); }
 .gig-card.featured-glow::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold);
 }
@@ -150,8 +106,8 @@ body {
 
 .card-title { font-size: 1.15rem; font-weight: 800; flex: 1; }
 .card-price {
-  background: var(--green); color: #fff;
-  padding: 4px 12px; border-radius: 8px; font-weight: 800; font-size: 0.9rem;
+  background: var(--green); color: #fff; padding: 4px 12px;
+  border-radius: 8px; font-weight: 800; font-size: 0.9rem;
 }
 .request-price { background: var(--gold); color: #000; }
 
@@ -189,9 +145,8 @@ body {
 
 /* === MODALS === */
 .modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
-  z-index: 200; align-items: center; justify-content: center; padding: 1rem;
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(5px); z-index: 200; align-items: center; justify-content: center; padding: 1rem;
 }
 .modal-overlay.active { display: flex; }
 .modal {
@@ -213,9 +168,8 @@ body {
 .form-group { margin-bottom: 1rem; }
 .form-label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: var(--text-muted); font-weight: 600; }
 .form-input, .form-select, .form-textarea {
-  width: 100%; padding: 12px; background: var(--surface);
-  border: 1px solid var(--card-border); border-radius: 10px; color: var(--text);
-  font-family: inherit; outline: none;
+  width: 100%; padding: 12px; background: var(--surface); border: 1px solid var(--card-border);
+  border-radius: 10px; color: var(--text); font-family: inherit; outline: none;
 }
 .form-input:focus { border-color: var(--green-light); }
 
@@ -236,6 +190,10 @@ body {
 }
 input:checked + .slider { background-color: var(--green); }
 input:checked + .slider:before { transform: translateX(20px); }
+
+.auth-tab { padding: 10px 0; color: var(--text-muted); cursor: pointer; font-weight: 700; position: relative; }
+.auth-tab.active { color: var(--green-light); }
+.auth-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--green-light); }
 </style>
 </head>
 <body>
@@ -282,7 +240,13 @@ input:checked + .slider:before { transform: translateX(20px); }
       </div>
       <div class="form-group">
         <label class="form-label">Password</label>
-        <input type="password" class="form-input" id="authPass" required>
+        <input type="password" class="form-input" id="authPass" required minlength="6">
+      </div>
+      <div id="popiaGroup" style="display: none; margin-bottom: 1rem;">
+        <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem; color: var(--text-muted); cursor: pointer;">
+          <input type="checkbox" id="popiaConsent" style="margin-top: 3px;">
+          <span>I agree to the <a href="#" style="color: var(--gold);">Terms of Use</a> and consent to HustleBoard-ZA processing my data according to the <strong>POPIA act</strong>.</span>
+        </label>
       </div>
       <button type="submit" class="btn-post" style="width: 100%; margin-top: 10px;" id="authSubmitBtn">Login</button>
     </form>
@@ -378,11 +342,23 @@ input:checked + .slider:before { transform: translateX(20px); }
   </div>
 </div>
 
+<footer style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.75rem; border-top: 1px solid var(--card-border); max-width: 1280px; margin: 0 auto;">
+  <p>&copy; 2026 HustleBoard ZA. All rights reserved.</p>
+  <div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
+    <a href="#" style="color: var(--text-muted);">Privacy Policy</a>
+    <a href="#" style="color: var(--text-muted);">Terms of Service</a>
+    <a href="#" style="color: var(--text-muted);">POPIA Compliance</a>
+  </div>
+</footer>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== CONFIG & DATA =====
-const API_URL = 'http://localhost:5000/api';
+// ===== SUPABASE CONFIG (Get these from Supabase.com) =====
+const SUPABASE_URL = 'https://YOUR_PROJECT_URL.supabase.co';
+const SUPABASE_KEY = 'YOUR_ANON_KEY';
+const supabase = window.supabase?.createClient ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
 const STORAGE_KEY = 'hustleboard_gigs';
 const USER_KEY = 'hustleboard_user';
 const USERS_DB_KEY = 'hustleboard_users_db';
@@ -392,36 +368,24 @@ const catEmoji = { 'Garden': '🌿', 'Cleaning': '🧹', 'Tech': '💻', 'Design
 let currentUser = JSON.parse(localStorage.getItem(USER_KEY)) || null;
 let authMode = 'login';
 
-// ===== DATA LAYER =====
-async function getGigs() {
-  try {
-    // Try backend but with a short timeout to prevent long delays
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), 2000);
-    const res = await fetch(`${API_URL}/gigs`, { signal: controller.signal });
-    clearTimeout(id);
-    if (!res.ok) throw new Error();
-    return await res.json();
-  } catch (e) {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  }
-}
-
-function saveAllGigs(gigs) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(gigs));
-  // Future: Sync to backend via PUT /api/gigs
+// ===== DATA CLEANUP =====
+function cleanupData() {
+  let gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  const filtered = gigs.filter(g => !g.title?.toLowerCase().includes('gate washer'));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
 }
 
 // ===== AUTH =====
 function updateNavbar() {
   const navAuth = document.getElementById('navAuth');
   if (currentUser) {
+    const displayName = currentUser.user_metadata?.full_name || currentUser.name || currentUser.email.split('@')[0];
     navAuth.innerHTML = `
       <div class="user-profile" onclick="openDashboard()">
-        <div class="user-avatar">${currentUser.name[0].toUpperCase()}</div>
-        <div style="font-weight: 700; font-size: 0.9rem;">${currentUser.name.split(' ')[0]}</div>
+        <div class="user-avatar">${displayName[0].toUpperCase()}</div>
+        <div style="font-weight: 700; font-size: 0.9rem;">${displayName.split(' ')[0]}</div>
       </div>
-      <button class="btn-post" onclick="openModal('postModal')">+ Post</button>
+      <button class="btn-post" onclick="checkAuthAndPost()">+ Post</button>
     `;
   } else {
     navAuth.innerHTML = `
@@ -438,24 +402,27 @@ function switchAuth(mode) {
   document.getElementById('authTitle').textContent = mode === 'login' ? 'Welcome Back' : 'Create Account';
   document.getElementById('authSubmitBtn').textContent = mode === 'login' ? 'Login' : 'Join HustleBoard';
   document.getElementById('nameGroup').style.display = mode === 'login' ? 'none' : 'block';
+  document.getElementById('popiaGroup').style.display = mode === 'login' ? 'none' : 'block';
 }
 
-function handleAuth(e) {
+async function handleAuth(e) {
   e.preventDefault();
   const email = document.getElementById('authEmail').value;
   const pass = document.getElementById('authPass').value;
   const name = document.getElementById('authName').value;
-  const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
 
   if (authMode === 'register') {
+    if (!document.getElementById('popiaConsent').checked) return showToast("Consent to POPIA required", true);
+    const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
     if (users.find(u => u.email === email)) return showToast("Email already exists!", true);
     const newUser = { id: 'u' + Date.now(), name, email, pass };
     users.push(newUser);
     localStorage.setItem(USERS_DB_KEY, JSON.stringify(users));
     loginUser(newUser);
   } else {
+    const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
     const user = users.find(u => u.email === email && u.pass === pass);
-    if (!user) return showToast("Invalid email or password", true);
+    if (!user) return showToast("Invalid credentials", true);
     loginUser(user);
   }
 }
@@ -466,7 +433,7 @@ function loginUser(user) {
   closeModal('authModal');
   updateNavbar();
   renderGigs();
-  showToast(`Welcome back, ${user.name.split(' ')[0]}!`);
+  showToast("LoggedIn Securely!");
 }
 
 function logout() {
@@ -479,7 +446,7 @@ function logout() {
 }
 
 function checkAuthAndPost() {
-  if (!currentUser) { openModal('authModal'); showToast("Please login to post", true); }
+  if (!currentUser) { openModal('authModal'); showToast("Login to post", true); }
   else openModal('postModal');
 }
 
@@ -487,69 +454,46 @@ function checkAuthAndPost() {
 async function renderGigs() {
   const grid = document.getElementById('gigGrid');
   if (!grid) return;
-
-  const gigs = await getGigs();
+  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   gigs.sort((a,b) => (b.isFeatured - a.isFeatured) || (b.createdAt - a.createdAt));
-
   const activeGigs = gigs.filter(g => g.status !== 'Archived');
 
-  if (activeGigs.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 4rem;"><h3>No active hustles found.</h3><p>Be the first to post!</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = activeGigs.map(g => {
-    const isOwner = currentUser && g.ownerId === currentUser.id;
-    const isPending = g.status === 'Pending Confirmation';
-    
-    return `
-      <div class="gig-card ${g.isFeatured ? 'featured-glow' : ''}">
-        ${isOwner ? `<button class="btn-delete" onclick="confirmDelete('${g.id}')">✕</button>` : ''}
-        <div style="display: flex; gap: 8px; align-items: center;">
-          <div class="card-type-tag ${g.type === 'offer' ? 'type-offer' : 'type-request'}">
-            ${g.type === 'offer' ? 'Service Offered' : 'Help Wanted'}
+  grid.innerHTML = activeGigs.length === 0 ? `<div style="grid-column: 1/-1; text-align: center; padding: 4rem;"><h3>No active hustles found.</h3><p>Be the first to post!</p></div>` :
+    activeGigs.map(g => {
+      const isOwner = currentUser && g.ownerId === currentUser.id;
+      const isPending = g.status === 'Pending Confirmation';
+      return `
+        <div class="gig-card ${g.isFeatured ? 'featured-glow' : ''}">
+          ${isOwner ? `<button class="btn-delete" title="Delete" onclick="confirmDelete('${g.id}')">✕</button>` : ''}
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <div class="card-type-tag ${g.type === 'offer' ? 'type-offer' : 'type-request'}">${g.type === 'offer' ? 'Service Offered' : 'Help Wanted'}</div>
+            ${isPending ? '<span class="status-badge status-pending-confirmation">Waiting confirmation... ⏳</span>' : ''}
           </div>
-          ${isPending ? '<span class="status-badge status-pending-confirmation">Waiting for confirmation... ⏳</span>' : ''}
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h3 class="card-title">${escapeHtml(g.title)} ${g.isVerified ? '🛡️' : ''}</h3>
+            <span class="card-price ${g.type === 'request' ? 'request-price' : ''}">R${g.price}</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">${escapeHtml(g.description)}</p>
+          <div style="display: flex; gap: 8px; margin: 5px 0;">
+            <span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${escapeHtml(g.location)}</span>
+            ${g.isFeatured ? '<span class="badge badge-featured">✨ FEATURED</span>' : ''}
+          </div>
+          ${(isPending && !isOwner) ? `<button class="btn-confirm-finish" onclick="confirmUserFinish('${g.id}')">✅ Confirm this job is done</button>` : ''}
+          <div style="display: flex; gap: 10px; margin-top: auto;">
+            <button class="btn-wa" onclick="openAi('${g.id}')">Contact via WhatsApp</button>
+            ${isOwner ? `<button class="btn-post" onclick="openDashboard()" style="padding: 8px 12px; font-size: 0.8rem; background: var(--surface); color: var(--text);">Manage</button>` : `<button class="btn-post" onclick="openModal('payModal')" style="padding: 8px 12px; font-size: 0.8rem;">Boost</button>`}
+          </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-          <h3 class="card-title">${escapeHtml(g.title)} ${g.isVerified ? '🛡️' : ''}</h3>
-          <span class="card-price ${g.type === 'request' ? 'request-price' : ''}">R${g.price}</span>
-        </div>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">${escapeHtml(g.description)}</p>
-        <div style="display: flex; gap: 8px; margin: 5px 0;">
-          <span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${escapeHtml(g.location)}</span>
-          <span class="badge">${catEmoji[g.category] || '📦'} ${g.category}</span>
-          ${g.isFeatured ? '<span class="badge badge-featured">✨ FEATURED</span>' : ''}
-        </div>
-        ${(isPending && !isOwner) ? `<button class="btn-confirm-finish" onclick="confirmUserFinish('${g.id}')">✅ Confirm this job is done</button>` : ''}
-        <div style="display: flex; gap: 10px; margin-top: auto;">
-          <button class="btn-wa" onclick="openAi('${g.id}')">Contact</button>
-          ${isOwner ? `<button class="btn-post" onclick="openDashboard()" style="padding: 8px 12px; font-size: 0.8rem; background: var(--surface); color: var(--text);">Manage</button>` : `<button class="btn-post" onclick="openModal('payModal')" style="padding: 8px 12px; font-size: 0.8rem;">Boost</button>`}
-        </div>
-      </div>
-    `;
-  }).join('');
+      `;
+    }).join('');
 }
 
 async function handlePost(e) {
   e.preventDefault();
-  const gig = {
-    id: 'g' + Date.now(),
-    ownerId: currentUser.id,
-    title: document.getElementById('postTitle').value,
-    type: document.getElementById('postType').value,
-    category: document.getElementById('postCat').value,
-    price: document.getElementById('postPrice').value,
-    location: document.getElementById('postLoc').value,
-    whatsapp: document.getElementById('postWhatsapp').value,
-    description: document.getElementById('postDesc').value,
-    status: 'Active',
-    createdAt: Date.now()
-  };
-  
-  const all = await getGigs();
+  const gig = { id: 'g' + Date.now(), ownerId: currentUser.id, title: document.getElementById('postTitle').value, type: document.getElementById('postType').value, category: document.getElementById('postCat').value, price: document.getElementById('postPrice').value, location: document.getElementById('postLoc').value, whatsapp: document.getElementById('postWhatsapp').value, description: document.getElementById('postDesc').value, status: 'Active', createdAt: Date.now() };
+  const all = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   all.unshift(gig);
-  saveAllGigs(all);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
   closeModal('postModal');
   renderGigs();
   showToast("Hustle posted! 🎉");
@@ -557,16 +501,16 @@ async function handlePost(e) {
 
 async function openDashboard() {
   if (!currentUser) return;
-  const gigs = await getGigs();
+  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   const userGigs = gigs.filter(g => g.ownerId === currentUser.id);
   const list = document.getElementById('userGigsList');
-  list.innerHTML = userGigs.length === 0 ? `<p style="text-align: center; color: var(--text-muted); padding: 2rem;">No hustles posted yet.</p>` :
+  list.innerHTML = userGigs.length === 0 ? `<p style="text-align: center; color: var(--text-muted); padding: 2rem;">No hustles yet.</p>` :
     userGigs.map(g => `
       <div class="dashboard-item">
-        <div><div style="font-weight: 800;">${escapeHtml(g.title)}</div><div style="font-size: 0.8rem; color: var(--text-muted);">Status: ${g.status || 'Active'}</div></div>
+        <div><div style="font-weight: 800;">${escapeHtml(g.title)}</div><div style="font-size: 0.8rem; color: var(--text-muted);">Status: ${g.status}</div></div>
         <div style="display: flex; align-items: center; gap: 15px;">
           <label class="switch"><input type="checkbox" ${g.status === 'Pending Confirmation' ? 'checked' : ''} onchange="toggleStatus('${g.id}', this.checked)"><span class="slider"></span></label>
-          <button onclick="confirmDelete('${g.id}')" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:1.2rem;">✕</button>
+          <button onclick="confirmDelete('${g.id}')" style="background:none; border:none; color:var(--danger); cursor:pointer;">✕</button>
         </div>
       </div>
     `).join('');
@@ -574,65 +518,44 @@ async function openDashboard() {
 }
 
 async function toggleStatus(id, isFinished) {
-  const gigs = await getGigs();
+  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   const g = gigs.find(x => x.id == id);
-  if (g && g.ownerId === currentUser.id) {
-    g.status = isFinished ? 'Pending Confirmation' : 'Active';
-    saveAllGigs(gigs);
-    renderGigs();
-    showToast(`Hustle marked as ${isFinished ? 'Finished' : 'Active'}`);
-  }
+  if (g && g.ownerId === currentUser.id) { g.status = isFinished ? 'Pending Confirmation' : 'Active'; localStorage.setItem(STORAGE_KEY, JSON.stringify(gigs)); renderGigs(); showToast(`Hustle ${g.status}`); }
 }
 
 async function confirmUserFinish(id) {
-  const gigs = await getGigs();
+  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   const g = gigs.find(x => x.id == id);
-  if (g) { g.status = 'Archived'; saveAllGigs(gigs); renderGigs(); showToast("🎉 Job confirmed & removed!"); }
+  if (g) { g.status = 'Archived'; localStorage.setItem(STORAGE_KEY, JSON.stringify(gigs)); renderGigs(); showToast("Job confirmed & removed!"); }
 }
 
 async function confirmDelete(id) {
-  if (confirm("Remove this hustle permanently?")) {
-    const gigs = await getGigs();
-    saveAllGigs(gigs.filter(g => g.id != id));
+  if (confirm("Remove permanently?")) {
+    const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const filtered = gigs.filter(g => g.id != id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
     renderGigs();
     if(document.getElementById('dashboardModal').classList.contains('active')) openDashboard();
-    showToast("Hustle removed ✓");
+    showToast("Removed ✓");
   }
 }
 
 // ===== UTILS =====
 function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
-
 async function openAi(id) {
-  const gigs = await getGigs();
+  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   const g = gigs.find(x => x.id == id);
-  const pitch = g.type === 'offer' ? `Hi! I saw your service "${g.title}" on HustleBoard and I'm interested.` : `Hi! I saw your request for "${g.title}" and I'd love to help.`;
+  const pitch = g.type === 'offer' ? `Hi! I saw your service "${g.title}" on HustleBoard.` : `Hi! I saw your request for "${g.title}".`;
   document.getElementById('aiPitch').textContent = pitch;
   document.getElementById('sendAiBtn').onclick = () => window.open(`https://wa.me/${g.whatsapp}?text=${encodeURIComponent(pitch)}`);
   openModal('aiModal');
 }
+function simulatePayment() { showToast("Processing..."); setTimeout(() => { showToast("Boosted! 🎉"); closeModal('payModal'); }, 1500); }
+function showToast(m, err = false) { const t = document.getElementById('toast'); t.textContent = m; t.style.background = err ? 'var(--danger)' : 'var(--green)'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
 
-function simulatePayment() { showToast("Processing..."); setTimeout(() => { showToast("Success! Post boosted. 🎉"); closeModal('payModal'); }, 1500); }
-
-function showToast(m, err = false) {
-  const t = document.getElementById('toast'); t.textContent = m; t.style.background = err ? 'var(--danger)' : 'var(--green)';
-  t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-
-// ===== INIT =====
-function seedData() {
-  if (localStorage.getItem(STORAGE_KEY)) return;
-  const samples = [
-    { id: 's1', ownerId: 'sys', title: 'Garden Cleanup', category: 'Garden', location: 'Joburg', price: '450', whatsapp: '0821234567', description: 'Mowing and refuse removal.', type: 'offer', isFeatured: true, isVerified: true, status: 'Active', createdAt: Date.now() },
-    { id: 's2', ownerId: 'sys', title: 'Need Plumber', category: 'Other', location: 'Pretoria', price: '800', whatsapp: '0831112222', description: 'Emergency pipe repair.', type: 'request', isFeatured: true, status: 'Active', createdAt: Date.now() - 100000 }
-  ];
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(samples));
-}
-
-seedData();
+cleanupData();
 updateNavbar();
 renderGigs();
 </script>
