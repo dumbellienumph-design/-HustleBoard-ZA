@@ -354,25 +354,31 @@ input:checked + .slider:before { transform: translateX(20px); }
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== SUPABASE CONFIG (Get these from Supabase.com) =====
+// ===== SUPABASE LIVE CONFIG =====
+// NOTE: Please replace 'https://YOUR_PROJECT_URL.supabase.co' with your actual Supabase Project URL
 const SUPABASE_URL = 'https://YOUR_PROJECT_URL.supabase.co';
-const SUPABASE_KEY = 'YOUR_ANON_KEY';
-const supabase = window.supabase?.createClient ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const SUPABASE_ANON_KEY = 'sb_publishable_8SRZ-GdeePjNYydNBM5WLg_iqD5PoYM';
+const supabaseClient = window.supabase?.createClient ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-const STORAGE_KEY = 'hustleboard_gigs';
 const USER_KEY = 'hustleboard_user';
-const USERS_DB_KEY = 'hustleboard_users_db';
-
 const catEmoji = { 'Garden': '🌿', 'Cleaning': '🧹', 'Tech': '💻', 'Design': '🎨', 'Other': '📦' };
 
 let currentUser = JSON.parse(localStorage.getItem(USER_KEY)) || null;
 let authMode = 'login';
 
-// ===== DATA CLEANUP =====
-function cleanupData() {
-  let gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const filtered = gigs.filter(g => !g.title?.toLowerCase().includes('gate washer'));
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+// ===== DATA LAYER (SUPABASE) =====
+async function getGigs() {
+  if (!supabaseClient) return [];
+  const { data, error } = await supabaseClient
+    .from('gigs')
+    .select('*')
+    .neq('status', 'Archived');
+  
+  if (error) {
+    console.error('Error fetching gigs:', error);
+    return [];
+  }
+  return data;
 }
 
 // ===== AUTH =====
@@ -413,17 +419,20 @@ async function handleAuth(e) {
 
   if (authMode === 'register') {
     if (!document.getElementById('popiaConsent').checked) return showToast("Consent to POPIA required", true);
-    const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
-    if (users.find(u => u.email === email)) return showToast("Email already exists!", true);
-    const newUser = { id: 'u' + Date.now(), name, email, pass };
-    users.push(newUser);
-    localStorage.setItem(USERS_DB_KEY, JSON.stringify(users));
-    loginUser(newUser);
+    
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password: pass,
+      options: { data: { full_name: name } }
+    });
+
+    if (error) return showToast(error.message, true);
+    showToast("Registration successful! Please check your email.");
+    loginUser(data.user);
   } else {
-    const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
-    const user = users.find(u => u.email === email && u.pass === pass);
-    if (!user) return showToast("Invalid credentials", true);
-    loginUser(user);
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+    if (error) return showToast(error.message, true);
+    loginUser(data.user);
   }
 }
 
@@ -437,6 +446,7 @@ function loginUser(user) {
 }
 
 function logout() {
+  supabaseClient.auth.signOut();
   currentUser = null;
   localStorage.removeItem(USER_KEY);
   closeModal('dashboardModal');
@@ -454,12 +464,12 @@ function checkAuthAndPost() {
 async function renderGigs() {
   const grid = document.getElementById('gigGrid');
   if (!grid) return;
-  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  gigs.sort((a,b) => (b.isFeatured - a.isFeatured) || (b.createdAt - a.createdAt));
-  const activeGigs = gigs.filter(g => g.status !== 'Archived');
+  
+  const gigs = await getGigs();
+  gigs.sort((a,b) => (b.isFeatured - a.isFeatured) || (new Date(b.createdAt) - new Date(a.createdAt)));
 
-  grid.innerHTML = activeGigs.length === 0 ? `<div style="grid-column: 1/-1; text-align: center; padding: 4rem;"><h3>No active hustles found.</h3><p>Be the first to post!</p></div>` :
-    activeGigs.map(g => {
+  grid.innerHTML = gigs.length === 0 ? `<div style="grid-column: 1/-1; text-align: center; padding: 4rem;"><h3>No active hustles found.</h3><p>Be the first to post!</p></div>` :
+    gigs.map(g => {
       const isOwner = currentUser && g.ownerId === currentUser.id;
       const isPending = g.status === 'Pending Confirmation';
       return `
@@ -490,19 +500,35 @@ async function renderGigs() {
 
 async function handlePost(e) {
   e.preventDefault();
-  const gig = { id: 'g' + Date.now(), ownerId: currentUser.id, title: document.getElementById('postTitle').value, type: document.getElementById('postType').value, category: document.getElementById('postCat').value, price: document.getElementById('postPrice').value, location: document.getElementById('postLoc').value, whatsapp: document.getElementById('postWhatsapp').value, description: document.getElementById('postDesc').value, status: 'Active', createdAt: Date.now() };
-  const all = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  all.unshift(gig);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  const gig = { 
+    ownerId: currentUser.id, 
+    title: document.getElementById('postTitle').value, 
+    type: document.getElementById('postType').value, 
+    category: document.getElementById('postCat').value, 
+    price: document.getElementById('postPrice').value, 
+    location: document.getElementById('postLoc').value, 
+    whatsapp: document.getElementById('postWhatsapp').value, 
+    description: document.getElementById('postDesc').value, 
+    status: 'Active'
+  };
+
+  const { error } = await supabaseClient.from('gigs').insert([gig]);
+  if (error) return showToast(error.message, true);
+
   closeModal('postModal');
   renderGigs();
-  showToast("Hustle posted! 🎉");
+  showToast("Hustle posted to Supabase! 🎉");
 }
 
 async function openDashboard() {
   if (!currentUser) return;
-  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const userGigs = gigs.filter(g => g.ownerId === currentUser.id);
+  const { data: userGigs, error } = await supabaseClient
+    .from('gigs')
+    .select('*')
+    .eq('ownerId', currentUser.id);
+
+  if (error) return showToast("Error loading dashboard", true);
+
   const list = document.getElementById('userGigsList');
   list.innerHTML = userGigs.length === 0 ? `<p style="text-align: center; color: var(--text-muted); padding: 2rem;">No hustles yet.</p>` :
     userGigs.map(g => `
@@ -518,22 +544,36 @@ async function openDashboard() {
 }
 
 async function toggleStatus(id, isFinished) {
-  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const g = gigs.find(x => x.id == id);
-  if (g && g.ownerId === currentUser.id) { g.status = isFinished ? 'Pending Confirmation' : 'Active'; localStorage.setItem(STORAGE_KEY, JSON.stringify(gigs)); renderGigs(); showToast(`Hustle ${g.status}`); }
+  const newStatus = isFinished ? 'Pending Confirmation' : 'Active';
+  const { error } = await supabaseClient
+    .from('gigs')
+    .update({ status: newStatus })
+    .eq('id', id);
+
+  if (error) return showToast(error.message, true);
+  renderGigs();
+  showToast(`Hustle ${newStatus}`);
 }
 
 async function confirmUserFinish(id) {
-  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const g = gigs.find(x => x.id == id);
-  if (g) { g.status = 'Archived'; localStorage.setItem(STORAGE_KEY, JSON.stringify(gigs)); renderGigs(); showToast("Job confirmed & removed!"); }
+  const { error } = await supabaseClient
+    .from('gigs')
+    .update({ status: 'Archived' })
+    .eq('id', id);
+
+  if (error) return showToast(error.message, true);
+  renderGigs();
+  showToast("🎉 Job confirmed & removed!");
 }
 
 async function confirmDelete(id) {
   if (confirm("Remove permanently?")) {
-    const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    const filtered = gigs.filter(g => g.id != id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+    const { error } = await supabaseClient
+      .from('gigs')
+      .delete()
+      .eq('id', id);
+
+    if (error) return showToast(error.message, true);
     renderGigs();
     if(document.getElementById('dashboardModal').classList.contains('active')) openDashboard();
     showToast("Removed ✓");
@@ -544,18 +584,17 @@ async function confirmDelete(id) {
 function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
 async function openAi(id) {
-  const gigs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const g = gigs.find(x => x.id == id);
-  const pitch = g.type === 'offer' ? `Hi! I saw your service "${g.title}" on HustleBoard.` : `Hi! I saw your request for "${g.title}".`;
+  const { data: gig } = await supabaseClient.from('gigs').select('*').eq('id', id).single();
+  if (!gig) return;
+  const pitch = gig.type === 'offer' ? `Hi! I saw your service "${gig.title}" on HustleBoard.` : `Hi! I saw your request for "${gig.title}".`;
   document.getElementById('aiPitch').textContent = pitch;
-  document.getElementById('sendAiBtn').onclick = () => window.open(`https://wa.me/${g.whatsapp}?text=${encodeURIComponent(pitch)}`);
+  document.getElementById('sendAiBtn').onclick = () => window.open(`https://wa.me/${gig.whatsapp}?text=${encodeURIComponent(pitch)}`);
   openModal('aiModal');
 }
 function simulatePayment() { showToast("Processing..."); setTimeout(() => { showToast("Boosted! 🎉"); closeModal('payModal'); }, 1500); }
 function showToast(m, err = false) { const t = document.getElementById('toast'); t.textContent = m; t.style.background = err ? 'var(--danger)' : 'var(--green)'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
 function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
 
-cleanupData();
 updateNavbar();
 renderGigs();
 </script>
